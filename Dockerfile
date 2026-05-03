@@ -1,5 +1,5 @@
-# Build stage
-FROM maven:3.9.4-eclipse-temurin-17 AS build
+# Multi-stage build with Java 17 and Maven
+FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-alpine
 
 # Install curl for health checks
-RUN apk add --no-cache curl
+RUN apk add --no-cache curl ca-certificates
 
 # Create app directory
 WORKDIR /app
